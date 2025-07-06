@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Titulo -->
+    <title>Gamex | Welcome</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../../css/store_styles/inicio.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Contendor principal -->
+    <main>
+        <img src="../../assets/img/icon.png" alt="icon" id="img-icon">
+
+        <h1>¡Bienvenido/a a Gamex!</h1>
+
+        <form id="form-login" autocomplete="off">
+            <label>Usuario</label>
+
+            <input type="text" id="input-nombre">
+
+            <p id="error-msg">Debes ingresar tu usuario.</p>
+            
+            <button type="button" class="btn-login">Iniciar sesión</button>
+        </form>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div id="footer-container">
+            <ul>
+                <li>
+                    © 2025 Gamex 
+                </li>
+                <li>
+                    Luca Areco
+                </li>
+                <li>
+                    Gastón Cvitanich
+                </li>
+                <li>
+                    Programación 3
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Lógica -->
+    <script>
+        window.addEventListener("DOMContentLoaded", () => 
+        {
+            const botonLogin = document.querySelector('.btn-login');
+            const inputNombre = document.querySelector('#input-nombre');
+            const error = document.querySelector('#error-msg');
+            
+            botonLogin.addEventListener('click', () => {
+                const value = inputNombre.value.trim();
+
+                if(value)
+                {
+                    window.location.href = './productos.html';
+                }
+                else
+                {
+                    error.style.display = 'block';
+                    
+                    inputNombre.focus();
+
+                    inputNombre.addEventListener('input', () => { 
+                        error.style.display = 'none';
+                        inputNombre.focus();
+                    }, { once: true });
+
+                }
+            })
+        });
+    </script>
+</body>
+</html>

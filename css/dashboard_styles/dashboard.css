@@ -1,0 +1,52 @@
+/* --- Estilos generales --- */
+*
+{
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+body
+{
+    background-color: #26547c;
+}
+
+#listado-nav
+{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+li
+{
+    list-style: none;
+}
+
+#barra-principal
+{
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px
+}
+
+a
+{
+    cursor: pointer;
+}
+
+a:visited, a:link
+{
+    color: white;
+    text-decoration: none;
+}
+
+#img-logo
+{
+    width: 11.5rem;
+}
+
+h1
+{
+    color: white;
+}
