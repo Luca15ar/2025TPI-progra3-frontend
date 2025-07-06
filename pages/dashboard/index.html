@@ -14,45 +14,79 @@
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
-
-    <!-- Encabezado -->
     <header>
-        <a href="index.html" id="barra-principal">
-            <div id="logo-nav">
-                <img src="../../assets/img/icon.png" alt="logo" id="img-logo">
+
+        <ul id="listado-nav">
+            <a href="index.html">
+                <li class="links-header"><span>GET</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>Get : id</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>POST</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>PUT</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>DELETE</span></li>
+            </a>
+        </ul>
+
+        <hr>
+        <h1>Listado de productos</h1> 
+        <hr>
+
+        <main id="contenedor-get">
+            <div id="productos-container">
+                <ul id="productos-lista">
+                    <!--
+                    <li class="li-listados productos-listados">
+                        <img src="" alt="" class="img-listados">
+                        <p>Id: / Nombre: / <strong>Precio: </strong></p>  
+                    </li>-->
+                </ul>
             </div>
-            <h1>Dashboard</h1>
-        </a>
+        </main>
+
+        <script>
+            async function obtenerDatosProductos() {
+                try{
+                    //Esperamos la respuesta de la peticion GET
+                    let respuesta = await fetch("http://localhost:3000/products");
+
+                    //Transformamos la respuesta a objetos JSON
+                    let datos = await respuesta.json()
+
+                    console.table(datos);
+                    mostrarProductos(datos);
+
+                } catch(error) {
+                    console.error(error);
+                }
+
+                function mostrarProductos(array) {
+                    let listaProductos = array.payload; //Guardamos el array de productos
+                    let productos_lista = document.getElementById("productos-lista");
+                    let htmlProducto = "";
+
+                    listaProductos.fetch(producto => {
+                        htmlProducto += `
+                        <li class="li-listados productos-listados">
+                            <img src="${producto.imagen}" alt="${producto.nombre}" class="img-listados">
+                            <p>Id: ${producto.id_juego} / Nombre: ${producto.nombre} / <strong>Precio: ${producto.precio}</strong></p>  
+                        </li>`;
+                    })
+
+                    productos_lista.innerHTML = htmlProducto;
+                }
+
+                obtenerDatosProductos();
+            }
+        </script>
+
     </header>
-
-    <!-- Contenedor principal -->
-    <main>
-        <nav>
-            <ul id="listado-nav">
-                <a href="get.html">
-                    <li class="links-header"><span>GET</span></li>
-                </a>
-                
-                <a href="getById.html">
-                    <li class="links-header"><span>GET by ID</span></li>
-                </a>
-                <a href="post.html">
-                    <li class="links-header"><span>POST</span></li>
-                </a>
-                
-                <a href="put.html">
-                    <li class="links-header"><span>PUT</span></li>
-                </a>
-                <a href="delete.html">
-                    <li class="links-header"><span>DELETE</span></li>
-                </a>
-            </ul>
-        </nav>
-    </main>
-
-    <!-- Logica -->
-    <script>
-
-    </script>
+    
 </body>
 </html>

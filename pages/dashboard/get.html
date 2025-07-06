@@ -14,20 +14,115 @@
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
-
-    <!-- Encabezado -->
     <header>
-        <a href="index.html" id="barra-principal">
-            <div id="logo-nav">
-                <img src="../../assets/img/icon.png" alt="logo" id="img-logo">
+
+        <ul id="listado-nav">
+            <a href="index.html">
+                <li class="links-header"><span>GET</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>Get : id</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>POST</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>PUT</span></li>
+            </a>
+            <a href="index.html">
+                <li class="links-header"><span>DELETE</span></li>
+            </a>
+        </ul>
+
+        <hr>
+        <h1>Consultar producto por id</h1> 
+        <hr>
+
+        <main id="contenedor-get">
+            <div id="productos-container" class="crudForm-container">
+                <h2>Consultar producto</h2>
+                <form id="getProduct-form">
+                    <label for="idProd">Id producto</label>
+                    <input type="number" name="idProd" id="idProd" required/>
+                    <input type="submit" value="Consultar producto">
+                </form>
+                
+                <div id="getId-container">
+                    <ul id="getId-list">
+
+                    </ul>
+                </div>
             </div>
-            <h1>Dashboard</h1>
-        </a>
+        </main>
+
+        <script>
+            let getProduct_form = document.getElementById("getProduct-form");
+            let getId_lista = document.getElementById("getId-list");
+
+            getProduct_form.addEventListener("submit", async (event) => {
+
+                event.preventDefault(); // Evitamos el envio por defecto del formulario
+
+                try {
+
+                    //Mostrar el estado de carga
+                    getId_lista.innerHTML = "<p>Cargando usuario...</p>";
+
+
+                    // Queremos extraer la informacion de los campos del formulario!
+                    // Este es un objeto JavaScript especifico de informacion de formularios HTML
+                    let formData = new FormData(event.target); 
+
+                    // Transformamos el objeto FormData en un objeto JS normal
+                    let data = Object.fromEntries(formData.entries());
+                    console.log(data);
+
+                    // Ahora que obtenemos el objeto con el campo de idProd, vamos a guardarlo en una variable
+                    let idProd = data.idProd.trim();  //Eliminamos posibles espacios con .trim()
+                    console.log(idProd);
+
+                    if(!idProd) {
+                        throw new Error(`Error en el envio de datos del formulario`);
+                    }
+
+                    let response = await fetch(`${url}/products/${idProd}`);
+
+                    //Manejamos el error en una posible respuesta no existosa
+                    if(!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`); // Error 404: Not Found
+                    }
+
+                    let datos = await response.json();
+                    console.log(datos);
+
+                    //Verificamos si existen productos en la respuesta
+                    if(!datos.payload || datos.payload.length === 0) {
+                        throw new Error("No se encontro el producto solicitado")
+                    }
+                    
+                    // Guardamos nuestro producto en una variable
+                    let producto = datos.payload[0];
+                    console.log(producto); // {"id": 2, "name": "hamburguesa salmon", "image": "https://burgernj.com/wp-content/uploads/2021/05/Salmon-Burger_.jpg", "category": "food", "price": "2500.00", "active": }
+
+                    let htmlProducto = `
+                        <li id="producto-encontrado" class="li-listados productos-listados">
+                            <img src="${producto.imagen}" alt="${producto.nombre}" class="img-listados">
+                            <p>Id: ${producto.id_juego} / Nombre: ${producto.nombre} / <strong>Precio: ${producto.precio}$</strong></p>
+                        </li>
+                    `;
+
+                    getId_lista.innerHTML = htmlProducto;
+
+                } catch (error) {
+                    console.error("Error al obtener el producto: ", error);
+
+                    //Escribir un mensaje de error
+                    getId_lista.innerHTML = `<p>${error.message}</p>`
+                }
+            })
+        </script>
+
     </header>
     
-    <!-- Logica -->
-    <script>
-
-    </script>
 </body>
 </html>
