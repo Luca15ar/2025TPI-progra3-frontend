@@ -14,13 +14,23 @@
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
+
+    <!-- Encabezado principal -->
     <header>
-        <ul id="listado-nav">
+        <div id="barra-principal">
             <a href="index.html">
+                <img src="../../assets/img/logo.png" alt="logo" id="img-logo">
+                
+                <h1>Dashboard</h1>
+            </a>
+        </div>
+
+        <ul id="listado-nav">
+            <a href="get.html">
                 <li class="links-header"><span>GET</span></li>
             </a>
             
-            <a href="get.html">
+            <a href="getById.html">
                 <li class="links-header"><span>Get : id</span></li>
             </a>
             <a href="post.html">
@@ -36,88 +46,90 @@
         </ul>
 
         <hr>
-        <h1>Crear productos</h1>
+            <h2>Crear productos</h2>
         <hr>
 
-        <main id="contenedor-post">
-            <div id="altaProducts-container" class="crudForm-container">
-                <h2>Alta producto</h2>
+    </header>
 
-                <form id="altaProducts-form" autocomplete="off">
+    <!-- Contenedor principal -->
+    <main id="contenedor-post">
+        <div id="altaProducts-container" class="crudForm-container">
+            <h2>Alta producto</h2>
 
-                    <label for="categoryProd">Categoria</label>
-                    <select name="category" id="categoryProd" required>
-                        <option value="accion">accion</option>
-                        <option value="terror">terror</option>
-                        <option value="deporte">deporte</option>
-                        <option value="fantasia">fantasia</option>
-                        <option value="shooter">shooter</option>
-                    </select>
+            <form id="altaProducts-form" autocomplete="off">
+                <label for="nombreProd">Nombre</label>
+                <input type="text" name="nombre" id="nombreProd" required>
+                
+                <label for="imagenProd">Imagen</label>
+                <input type="text" name="imagen" id="imagenProd" required>
+                
+                <label for="categoriaProd">Categoria</label>
+                <select name="categoria" id="categoriaProd" prequired>
+                    <option value="accion">Acción</option>
+                    <option value="terror">Terror</option>
+                    <option value="deporte">Deporte</option>
+                    <option value="fantasia">Fantasía</option>
+                    <option value="shooter">Shooter</option>
+                    <option value="supervivencia">Supervivencia</option>
+                    <option value="mundo-abierto">Mundo abierto</option>
+                </select>
+                
+                <label for="precioProd">Precio</label>
+                <input type="number" name="precio" id="precioProd" required>
 
-                    <label for="imagenProd">Imagen</label>
-                    <input type="text" name="image" id="imagenProd" required>
+                <input type="submit" value="Crear producto">
+            </form>
+        </div>
 
-                    <label for="nombreUser">Nombre</label>
-                    <input type="text" name="name" id="nombreUser" required>
+    </main>
 
-                    <label for="precioProd">Precio</label>
-                    <input type="number" name="price" id="precioProd" required>
+    <!-- Lógica -->
+    <script>
+        const url = "http://localhost:3000";
+        
+        let altaProducts_form = document.getElementById("altaProducts-form");
 
-                    
-                    <input type="submit" value="Crear producto">
-                </form>
-            </div>
+        altaProducts_form.addEventListener("submit", async(event) => {
 
-        </main>
+            event.preventDefault(); // Evitamos el envio por defecto del formulario
 
-        <!-- Por tema legibilidad, incorporamos aca el JavaScript -->
-        <script>
-            const url = "http://localhost:3000/api";
-            let altaProducts_form = document.getElementById("altaProducts-form");
+            let formData = new FormData(event.target); // Obtenemos la data del formulario
 
-            altaProducts_form.addEventListener("submit", async(event) => {
+            let data = Object.fromEntries(formData.entries()); // Convertimos a objeto JS nuestro objeto formulario
+            console.log(data);
 
-                event.preventDefault(); // Evitamos el envio por defecto del formulario
+            // Validamos datos previamente en el cliente
+            if(!data.nombre || !data.imagen || !data.precio) {
+                alert("Todos los campos son obligatorios!");
+                return;
+            }
 
-                let formData = new FormData(event.target); // Obtenemos la data del formulario
+            try {
+                let response = await fetch(`${url}/products`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
 
-                let data = Object.fromEntries(formData.entries()); // Convertimos a objeto JS nuestro objeto formulario
-                console.log(data); // {category: 'accion', image: 'imagen FIFA2025', name: 'FIFA 2025', price: '100000'}
+                if(response.ok) {
+                    console.log(response);
 
-                // Validamos datos previamente en el cliente
-                if(!data.name || !data.image || !data.price) {
-                    alert("Todos los campos son obligatorios!");
-                    return;
+                    let result = await response.json();
+                    console.log(result.message);
+                    alert(result.message);
+
+                } else {
+                    let error = await response.json();
+                    console.log("Error:", error.message);
                 }
 
-                try {
-                    let response = await fetch(`${url}/products`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    if(response.ok) {
-                        console.log(response);
-
-                        let result = await response.json();
-                        console.log(result.message);
-                        alert(result.message);
-
-                    } else {
-                        let error = await response.json();
-                        console.log("Error:", error.message);
-                    }
-
-                } catch {
-                    console.log("Error al enviar los datos", error);
-                    alert("Error al enviar la solicitud");
-                }
-
-            })
-        </script>
-</header>
+            } catch {
+                console.log("Error al enviar los datos", error);
+                alert("Error al enviar la solicitud");
+            }
+        })
+    </script>
 </body>
 </html>

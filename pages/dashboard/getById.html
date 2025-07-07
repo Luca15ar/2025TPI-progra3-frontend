@@ -17,17 +17,118 @@
     
     <!-- Encabezado -->
     <header>
-        <a href="index.html" id="barra-principal">
-            <div id="logo-nav">
-                <img src="../../assets/img/icon.png" alt="logo" id="img-logo">
-            </div>
-            <h1>Dashboard</h1>
-        </a>
+        <div id="barra-principal">
+            <a href="index.html">
+                <img src="../../assets/img/logo.png" alt="logo" id="img-logo">
+
+                <h1>Dashboard</h1>
+            </a>
+        </div>
+
+        <ul id="listado-nav">
+            <a href="get.html">
+                <li class="links-header"><span>GET</span></li>
+            </a>
+            <a href="getById.html">
+                <li class="links-header"><span>Get : id</span></li>
+            </a>
+            <a href="post.html">
+                <li class="links-header"><span>POST</span></li>
+            </a>
+            <a href="put.html">
+                <li class="links-header"><span>PUT</span></li>
+            </a>
+            <a href="delete.html">
+                <li class="links-header"><span>DELETE</span></li>
+            </a>
+        </ul>
+
+        <hr>
+            <h2>Consultar producto por ID</h2>
+        <hr>
     </header>
+
+    <!-- Contenedor principal -->
+    <main id="contenedor-get">
+        <div id="productos-container" class="crudForm-container">
+            <form id="getProduct-form">
+                <label for="idProd">Id producto</label>
+                <input type="number" name="idProd" id="idProd" required/>
+                <input type="submit" value="Consultar producto">
+            </form>    
+        </div>
+
+        <div id="getId-container">
+            <ul id="getId-list">
+
+            </ul>
+        </div>
+    </main>
 
     <!-- Logica -->
     <script>
+        const url = "http://localhost:3000";
 
+        let getProduct_form = document.getElementById("getProduct-form");
+        let getId_lista = document.getElementById("getId-list");
+
+        getProduct_form.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Evitamos el envío por defecto del formulario
+            try {
+                //Mostrar el estado de carga
+                getId_lista.innerHTML = "<p>Cargando usuario...</p>";
+
+                // Queremos extraer la informacion de los campos del formulario!
+                // Este es un objeto JavaScript especifico de informacion de formularios HTML
+                let formData = new FormData(event.target); 
+
+                // Transformamos el objeto FormData en un objeto JS normal
+                let data = Object.fromEntries(formData.entries());
+                console.log(data);
+
+                // Ahora que obtenemos el objeto con el campo de idProd, vamos a guardarlo en una variable
+                let idProd = data.idProd.trim();  //Eliminamos posibles espacios con .trim()
+                console.log(idProd);
+
+                if(!idProd) {
+                    throw new Error(`Error en el envío de datos del formulario.`);
+                }
+
+                let response = await fetch(`${url}/products/${idProd}`);
+
+                //Manejamos el error en una posible respuesta no existosa
+                if(!response.ok) {
+                    throw new Error(`Error ${response.status}: ${response.statusText}`); // Error 404: Not Found
+                }
+
+                let datos = await response.json();
+                console.log(datos);
+
+                //Verificamos si existen productos en la respuesta
+                if(!datos.payload || datos.payload.length === 0) {
+                    throw new Error("No se encontró el producto solicitado.")
+                }
+                
+                // Guardamos nuestro producto en una variable
+                let producto = datos.payload[0];
+                console.log(producto);
+
+                let htmlProducto = `
+                    <li id="producto-encontrado" class="li-listados productos-listados">
+                        <img src="${producto.imagen}" alt="${producto.nombre}" class="img-listados">
+                        <p>Id: ${producto.id_juego} / Nombre: ${producto.nombre} / <strong>Precio: ${producto.precio}$</strong></p>
+                    </li>
+                `;
+
+                getId_lista.innerHTML = htmlProducto;
+
+            } catch (error) {
+                console.error("Error al obtener el producto: ", error);
+
+                //Escribir un mensaje de error
+                getId_lista.innerHTML = `<p>${error.message}</p>`
+            }
+        })
     </script>
 </body>
 </html>

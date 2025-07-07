@@ -1,7 +1,7 @@
 /* --- Estilos generales --- */
 *
 {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     font-weight: bold;
 }
 
@@ -21,17 +21,13 @@ li
     list-style: none;
 }
 
-#barra-principal
+a
 {
     padding: 10px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px
-}
-
-a
-{
+    gap: 15px;
     cursor: pointer;
 }
 
@@ -43,10 +39,15 @@ a:visited, a:link
 
 #img-logo
 {
-    width: 11.5rem;
+    width: 300px;
 }
 
-h1
+h1, h2
 {
     color: white;
+}
+
+h2
+{
+    text-align: center;
 }
