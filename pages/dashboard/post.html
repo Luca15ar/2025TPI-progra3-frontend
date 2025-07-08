@@ -83,7 +83,7 @@
 
     <!-- Lógica -->
     <script>
-        const url = "http://localhost:3000";
+        const url = "http//localhost:3000/api";
         
         let altaProducts_form = document.getElementById("altaProducts-form");
 
@@ -123,7 +123,7 @@
                     console.log("Error:", error.message);
                 }
 
-            } catch {
+            } catch(error) {
                 console.log("Error al enviar los datos", error);
                 alert("Error al enviar la solicitud");
             }
