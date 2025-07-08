@@ -1,0 +1,44 @@
+#altaProducts-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#altaProducts-form
+{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #1a4368;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+span
+{
+    color: #ffb53b;
+    font-weight: bolder;
+}
+
+label
+{
+    color: white;
+    font-weight: bold;
+}
+
+input, select
+{
+    border: none;
+    border-radius: 5px;
+}
+
+#btn-crear:hover
+{
+    cursor: pointer;
+    background-color: azure;
+}

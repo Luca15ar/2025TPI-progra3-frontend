@@ -9,6 +9,7 @@
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../../css/dashboard_styles/dashboard.css">
+    <link rel="stylesheet" href="../../css/dashboard_styles/getById.css">
 
     <!-- Favicon -->
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
@@ -27,19 +28,19 @@
 
         <ul id="listado-nav">
             <a href="get.html">
-                <li><span>CONSULTAR</span></li>
+                <li>CONSULTAR</li>
             </a>
             <a href="getById.html">
                 <li><span>CONSULTAR por ID</span></li>
             </a>
             <a href="post.html">
-                <li><span>AÑADIR</span></li>
+                <li>AÑADIR</li>
             </a>
             <a href="put.html">
-                <li><span>MODIFICAR</span></li>
+                <li>MODIFICAR</li>
             </a>
             <a href="delete.html">
-                <li><span>ELIMINAR</span></li>
+                <li>ELIMINAR</li>
             </a>
         </ul>
 
@@ -50,12 +51,12 @@
 
     <!-- Contenedor principal -->
     <main id="contenedor-get">
-        <div id="productos-container" class="crudForm-container">
+        <div id="productos-container">
             <form id="getProduct-form">
-                <label for="idProd">Id producto</label>
-                <input type="number" name="idProd" id="idProd" required/>
-                <input type="submit" value="Consultar producto">
-            </form>    
+                <label for="idProd">ID producto</label>
+                <input id="idProd" type="number" name="idProd" required/>
+                <input id="btn-submit" type="submit" value="Consultar producto">
+            </form>
         </div>
 
         <div id="getId-container">
@@ -67,7 +68,7 @@
 
     <!-- Logica -->
     <script>
-        const url = "http//localhost:3000/api";
+        const url = "http://localhost:3000";
 
         let getProduct_form = document.getElementById("getProduct-form");
         let getId_lista = document.getElementById("getId-list");
@@ -114,9 +115,10 @@
                 console.log(producto);
 
                 let htmlProducto = `
+                <h3>Producto = ID: ${producto.id_juego}</h3>
                     <li id="producto-encontrado" class="li-listados productos-listados">
-                        <img src="${producto.imagen}" alt="${producto.nombre}" class="img-listados">
-                        <p>Id: ${producto.id_juego} / Nombre: ${producto.nombre} / <strong>Precio: ${producto.precio}$</strong></p>
+                        <img class="img-listados" src="${producto.imagen}" alt="${producto.nombre}">
+                        <p><span>Nombre:</span> ${producto.nombre} | <span>Precio:</span> $${producto.precio}</p>
                     </li>
                 `;
 

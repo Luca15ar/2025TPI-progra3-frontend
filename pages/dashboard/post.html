@@ -9,6 +9,7 @@
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../../css/dashboard_styles/dashboard.css">
+    <link rel="stylesheet" href="../../css/dashboard_styles/post.css">
 
     <!-- Favicon -->
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
@@ -27,19 +28,19 @@
 
         <ul id="listado-nav">
             <a href="get.html">
-                <li><span>CONSULTAR</span></li>
+                <li>CONSULTAR</li>
             </a>
             <a href="getById.html">
-                <li><span>CONSULTAR por ID</span></li>
+                <li>CONSULTAR por ID</li>
             </a>
             <a href="post.html">
                 <li><span>AÑADIR</span></li>
             </a>
             <a href="put.html">
-                <li><span>MODIFICAR</span></li>
+                <li>MODIFICAR</li>
             </a>
             <a href="delete.html">
-                <li><span>ELIMINAR</span></li>
+                <li>ELIMINAR</li>
             </a>
         </ul>
 
@@ -51,7 +52,7 @@
 
     <!-- Contenedor principal -->
     <main id="contenedor-post">
-        <div id="altaProducts-container" class="crudForm-container">
+        <div id="altaProducts-container">
             <h2>Alta producto</h2>
 
             <form id="altaProducts-form" autocomplete="off">
@@ -75,7 +76,7 @@
                 <label for="precioProd">Precio</label>
                 <input type="number" name="precio" id="precioProd" required>
 
-                <input type="submit" value="Crear producto">
+                <input id="btn-crear" type="submit" value="Crear producto">
             </form>
         </div>
 
@@ -83,7 +84,7 @@
 
     <!-- Lógica -->
     <script>
-        const url = "http//localhost:3000/api";
+        const url = "http://localhost:3000api";
         
         let altaProducts_form = document.getElementById("altaProducts-form");
 

@@ -1,0 +1,84 @@
+#productos-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#getProduct-form
+{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #1a4368;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+label
+{
+    color: white;
+    font-weight: bold;
+}
+
+#idProd
+{
+    border: none;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+#btn-submit
+{
+    border: none;
+    border-radius: 5px;
+}
+
+#btn-submit:hover
+{
+    cursor: pointer;
+    background-color: azure;
+}
+
+#getId-list
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#producto-encontrado
+{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 1%;
+    gap: 2%;
+}
+
+.img-listados
+{
+    width: 30%;
+}
+
+h3
+{
+    color: white;
+}
+
+p
+{
+    color: white;
+}
+
+span
+{
+    color: #ffb53b;
+    font-weight: bolder;
+}

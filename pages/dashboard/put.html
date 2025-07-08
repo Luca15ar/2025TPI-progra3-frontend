@@ -9,6 +9,7 @@
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../../css/dashboard_styles/dashboard.css">
+    <link rel="stylesheet" href="../../css/dashboard_styles/put.css">
 
     <!-- Favicon -->
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
@@ -27,19 +28,19 @@
 
         <ul id="listado-nav">
             <a href="get.html">
-                <li><span>CONSULTAR</span></li>
+                <li>CONSULTAR</li>
             </a>
             <a href="getById.html">
-                <li><span>CONSULTAR por ID</span></li>
+                <li>CONSULTAR por ID</li>
             </a>
             <a href="post.html">
-                <li><span>AÑADIR</span></li>
+                <li>AÑADIR</li>
             </a>
             <a href="put.html">
                 <li><span>MODIFICAR</span></li>
             </a>
             <a href="delete.html">
-                <li><span>ELIMINAR</span></li>
+                <li>ELIMINAR</li>
             </a>
         </ul>
         
@@ -51,7 +52,7 @@
 
     <!-- Contenedor principal -->
     <main id="contenedor-get">
-        <div id="getProduct-container" class="crudForm-container">
+        <div id="getProduct-container">
             <h2>Consultar producto</h2>
 
             <form id="getProduct-form">
@@ -72,7 +73,7 @@
 
     <!-- Lógica -->
     <script>
-        const url = "http//localhost:3000/api";
+        const url = "http://localhost:3000";
 
         // GET BY ID //
         let getProduct_form = document.getElementById("getProduct-form");

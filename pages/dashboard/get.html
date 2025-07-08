@@ -9,6 +9,7 @@
 
     <!-- Estilos -->
     <link rel="stylesheet" href="../../css/dashboard_styles/dashboard.css">
+    <link rel="stylesheet" href="../../css/dashboard_styles/get.css">
 
     <!-- Favicon -->
     <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
@@ -30,16 +31,16 @@
                 <li><span>CONSULTAR</span></li>
             </a>
             <a href="getById.html">
-                <li><span>CONSULTAR por ID</span></li>
+                <li>CONSULTAR por ID</li>
             </a>
             <a href="post.html">
-                <li><span>AÑADIR</span></li>
+                <li>AÑADIR</li>
             </a>
             <a href="put.html">
-                <li><span>MODIFICAR</span></li>
+                <li>MODIFICAR</li>
             </a>
             <a href="delete.html">
-                <li><span>ELIMINAR</span></li>
+                <li>ELIMINAR</li>
             </a>
         </ul>
 
@@ -59,7 +60,7 @@
 
     <!-- Lógica -->
     <script>
-        const url = "http//localhost:3000/api";
+        const url = "http://localhost:3000";
 
         async function obtenerDatosProductos() 
         {
@@ -89,10 +90,10 @@
             array.forEach(juego => {
                 htmlJuegos += `
                     <li class="juegos-listados">
-                        <img src="${juego.imagen}" alt="${juego.nombre}" class="img-listados">
-                        <p id="p-id">Id: <span>${juego.id_juego} |</span></p>
-                        <p id="p-nombre">Nombre: <span>${juego.nombre} |</span></p>
-                        <p id="p-precio"><strong>Precio: <span>$${juego.precio}</span></strong></p>`;
+                        <img class="img-listados" src="${juego.imagen}" alt="${juego.nombre}">
+                        <p id="p-id"><span>ID:</span> ${juego.id_juego} |</p>
+                        <p id="p-nombre"><span>Nombre:</span> ${juego.nombre} |</p>
+                        <p id="p-precio"><span>Precio:</span> $${juego.precio}</p>`;
 
                 if(juego.dlcs.length > 0) 
                 {
@@ -104,8 +105,9 @@
                     juego.dlcs.forEach(dlc => {
                     htmlJuegos += `
                         <li class="dlc-listados">
-                        <img src="${dlc.imagen}" alt="${dlc.nombre}" class="img-listados">
-                        <p>${dlc.nombre} — $${dlc.precio}</p>
+                            <img class="img-listados" src="${dlc.imagen}" alt="${dlc.nombre}" >
+                            <p id="p-nombre"><span>Nombre:</span> ${dlc.nombre} |</p>
+                            <p id="p-precio"><span>Precio:</span> $${dlc.precio}</p>
                         </li>`;
                     });
 
