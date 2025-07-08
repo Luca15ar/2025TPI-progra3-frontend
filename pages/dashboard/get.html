@@ -27,19 +27,19 @@
 
         <ul id="listado-nav">
             <a href="get.html">
-                <li class="links-header"><span>GET</span></li>
+                <li><span>CONSULTAR</span></li>
             </a>
             <a href="getById.html">
-                <li class="links-header"><span>Get : id</span></li>
+                <li><span>CONSULTAR por ID</span></li>
             </a>
             <a href="post.html">
-                <li class="links-header"><span>POST</span></li>
+                <li><span>AÑADIR</span></li>
             </a>
             <a href="put.html">
-                <li class="links-header"><span>PUT</span></li>
+                <li><span>MODIFICAR</span></li>
             </a>
             <a href="delete.html">
-                <li class="links-header"><span>DELETE</span></li>
+                <li><span>ELIMINAR</span></li>
             </a>
         </ul>
 
@@ -69,7 +69,7 @@
                 let respuesta = await fetch(`${url}/products`);
 
                 //Transformamos la respuesta a objetos JSON
-                let { payload } = await respuesta.json()
+                let { payload } = await respuesta.json();
 
                 console.table(payload);
 
@@ -90,22 +90,22 @@
                 htmlJuegos += `
                     <li class="juegos-listados">
                         <img src="${juego.imagen}" alt="${juego.nombre}" class="img-listados">
-                        <p>
-                            Id: ${juego.id_juego} /
-                            Nombre: ${juego.nombre} /
-                            <strong>Precio: $${juego.precio}</strong>
-                        </p>`;
+                        <p id="p-id">Id: <span>${juego.id_juego} |</span></p>
+                        <p id="p-nombre">Nombre: <span>${juego.nombre} |</span></p>
+                        <p id="p-precio"><strong>Precio: <span>$${juego.precio}</span></strong></p>`;
 
                 if(juego.dlcs.length > 0) 
                 {
                     htmlJuegos += `<ul class="dlcs-lista">
-                    <li><strong>DLCs:</strong></li>`;
+                    <li>
+                        <p><strong>DLCs:</strong></p>
+                    </li>`;
                     
                     juego.dlcs.forEach(dlc => {
                     htmlJuegos += `
-                        <li class="dlc-item">
+                        <li class="dlc-listados">
                         <img src="${dlc.imagen}" alt="${dlc.nombre}" class="img-listados">
-                        ${dlc.nombre} — $${dlc.precio}
+                        <p>${dlc.nombre} — $${dlc.precio}</p>
                         </li>`;
                     });
 

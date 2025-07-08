@@ -1,7 +1,7 @@
-/* --- Estilos generales --- */
+/* --- Estilos globales --- */
 *
 {
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     font-weight: bold;
 }
 
@@ -10,6 +10,12 @@ body
     background-color: #26547c;
 }
 
+h1, h2
+{
+    color: white;
+}
+
+/* --- Estilos del encabezado --- */
 #listado-nav
 {
     display: flex;
@@ -42,12 +48,57 @@ a:visited, a:link
     width: 300px;
 }
 
-h1, h2
-{
-    color: white;
-}
-
 h2
 {
     text-align: center;
+}
+
+/* --- Estilos del GET --- */
+#juegos-listados
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.juegos-listados
+{
+    display: flex;
+    border: 1px solid white;
+    align-items: center;
+    padding: 10px;
+}
+
+.img-listados
+{
+    width: 200px;
+}
+
+.dlcs-lista
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dlc-listados
+{
+    display: flex;
+    align-items: center;
+}
+
+p
+{
+    color: white;
+    padding: 0 15px;
+}
+
+#p-id, #p-nombre, #p-precio
+{
+    color: #ffb53b;
+}
+
+span
+{
+    color: white;
 }

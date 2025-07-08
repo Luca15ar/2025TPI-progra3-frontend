@@ -1,0 +1,168 @@
+/* --- Estilos globales --- */
+@font-face
+{
+    font-family: 'Orbitron';
+    src: url('../../assets/fonts/Orbitron/Orbitron-VariableFont_wght.ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+*
+{
+    font-family: 'Orbitron', sans-serif;
+    font-weight: normal;
+}
+
+body
+{
+    margin: 0;
+    z-index: -1;
+    background-image: url("../../assets/img/background.png");
+}
+
+h3, p
+{
+    color: white;
+    font-weight: bolder;
+}
+
+.visible
+{
+    display: block;
+}
+
+.hidden
+{
+    display: none;
+}
+
+/* --- Estilos del encabezado --- */
+header
+{
+    position: sticky;
+    top: 0;
+    background-color: rgb(22, 22, 22);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 20px;
+}
+
+#img-logo
+{
+    width: 10rem;
+}
+
+/* --- Estilos del contenedor principal*/
+h2
+{
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.items-carrito
+{
+    background-color: rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contenedor-img-carrito
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5%;
+}
+
+#img-carrito
+{
+    width: 50%;
+    padding-top: 5%;
+}
+
+.carta-juego
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+#lista-juegos
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn-eliminar
+{
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.total-carrito
+{
+    display: flex;
+    justify-content: end;
+    margin-top: 1.5%;
+    padding-right: 2.5%;
+}
+
+#precio-total
+{
+    color: #ffb53b;
+}
+
+.contenedor-botones
+{
+    display: flex;
+    justify-content: end;
+    margin-top: 1.5%;
+    padding-right: 2.5%;
+    gap: 20px;
+}
+
+.btn-eliminar:hover
+{
+    cursor: pointer;
+    background-color: rgb(255, 73, 73);
+}
+
+.btn-vaciar-carrito
+{
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: lightgray;
+}
+
+.btn-vaciar-carrito:hover
+{
+    cursor: pointer;
+    background-color: rgb(226, 226, 226);
+}
+
+.btn-comprar
+{
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(50, 156, 226);;
+}
+
+.btn-comprar:hover
+{
+    cursor: pointer;
+    background-color: rgb(97, 187, 247);
+}

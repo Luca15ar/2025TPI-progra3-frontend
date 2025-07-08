@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamex | Cart</title>
+
+    <!-- Título -->
+    <title>Gamex | Carrito</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../../css/store_styles/carrito.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    
+
+    <!-- Encabezado -->
+    <header>
+        <div class="logo-container">
+            <a href="productos.html">
+                <img id="img-logo" src="../../assets/img/logo_alter.png" alt="logo">
+            </a>
+        </div>
+    </header>
+
+    <!-- Contendor principal -->
+    <main>
+        <h2>Mi carrito</h2>
+        <div class="items-carrito">
+            <div class="contenedor-img-carrito">
+                <img id="img-carrito" src="../../assets/img/carrito-vacio.png" alt="carrito-vacio">
+            </div>
+            <p id="texto-items-carrito">No hay elementos en el carrito.</p>
+            <ul id="lista-juegos">
+                
+            </ul>
+        </div>
+        <div class="total-carrito">
+            <p>Total: $<span id="precio-total">0.00</span></p>
+        </div>
+        <div class="contenedor-botones">
+            <button class="btn-vaciar-carrito">Vaciar carrito</button>
+            <button class="btn-comprar">Comprar</button>
+        </div>
+    </main>
+
+    <!-- Lógica -->
+    <script defer src="../../scripts/carrito.js"></script>
 </body>
 </html>

@@ -17,29 +17,49 @@
 
     <!-- Encabezado -->
     <header>
-        <a href="productos.html">
-            <img src="../../assets/img/logo_alter.png" alt="logo" id="img-logo">
-        </a>
-
-        <input type="search" placeholder="Search..." id="barra-busqueda">
-
-        <div id="nav-user">
-            <p>Nombre usuario</p>
-
-            <a href="../dashboard/index.html">
-                <p>Admin</p>
+        <div class="logo-container">
+            <a href="productos.html">
+                <img id="img-logo" src="../../assets/img/logo_alter.png" alt="logo">
             </a>
+        </div>
+
+        <div class="nav">
+            <div class="buscador">
+                <img class="buscador-img" src="../../assets/img/lupa.png" alt="lupa">
+                <input id="barra-busqueda" type="search" placeholder="Search...">
+            </div>
+
+            <div id="info-user">
+                <a id="carrito" href="../store/carrito.html">
+                    <img id="carrito-user" src="../../assets/img/cart-alter.png" alt="carrito">
+                </a>
+                <a href="../dashboard/index.html">
+                    <p>Admin</p>
+                </a>
+            </div> 
         </div>
     </header>
 
     <!-- Contendor principal -->
     <main>
+        <!-- Sección de juegos  -->
         <section id="seccion-juegos">
+            <h2>JUEGOS</h2>
+            <div class="contenedor-juegos">
 
+            </div>
         </section>
-        <section id="seccion-dlcs">
 
+        <!-- Sección de dlcs -->
+        <section id="seccion-dlcs">
+            <h2>DLC</h2>
+            <div class="contenedor-dlcs">
+
+            </div>
         </section>
     </main>
+
+    <!-- Lógica -->
+    <script defer src="../../scripts/productos.js"></script>
 </body>
 </html>
