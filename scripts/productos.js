@@ -1,5 +1,5 @@
 /* Variable estática que guarda la url donde está deployada la página*/
-const url = "http://localhost:3000";
+const url = "http://localhost:3000/api";
 
 /* -- Obtengo los elementos del HTML -- */
 let contenedorJuegos = document.querySelector(".contenedor-juegos");
