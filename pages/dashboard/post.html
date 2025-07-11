@@ -33,7 +33,7 @@
             <a href="getById.html">
                 <li>CONSULTAR por ID</li>
             </a>
-            <a href="post.html">
+            <a id="pestaña-seleccionada" href="post.html">
                 <li><span>AÑADIR</span></li>
             </a>
             <a href="put.html">
@@ -45,13 +45,13 @@
         </ul>
 
         <hr>
-            <h2>Crear productos</h2>
+            <h2><span>Añadir productos</span></h2>
         <hr>
 
     </header>
 
     <!-- Contenedor principal -->
-    <main id="contenedor-post">
+    <main>
         <div id="altaProducts-container">
             <h2>Alta producto</h2>
 
@@ -61,6 +61,10 @@
                 
                 <label for="imagenProd">Imagen</label>
                 <input type="text" name="imagen" id="imagenProd" required>
+
+                <div id="preview-container" class="hidden">
+                    <img id="imagen-preview" src="" alt="Vista previa">
+                </div>
                 
                 <label for="categoriaProd">Categoria</label>
                 <select name="categoria" id="categoriaProd" prequired>
@@ -76,6 +80,17 @@
                 <label for="precioProd">Precio</label>
                 <input type="number" name="precio" id="precioProd" required>
 
+                <label for="tabla">Tabla</label>
+                <select id="tabla" name="tabla" required>
+                    <option value="juegos">Juego</option>
+                    <option value="dlcs">DLC</option>
+                </select>
+
+                <div id="div-id-juego" class="hidden">
+                    <label for="id_juego">ID Juego</label>
+                    <input id="id_juego" type="number" name="id_juego" min="1">
+                </div>
+
                 <input id="btn-crear" type="submit" value="Crear producto">
             </form>
         </div>
@@ -87,6 +102,29 @@
         const url = "http://localhost:3000/api";
         
         let altaProducts_form = document.getElementById("altaProducts-form");
+        let inputImagen = document.getElementById("imagenProd");
+        let previewContainer = document.getElementById("preview-container");
+        let imagenPreview = document.getElementById("imagen-preview");
+        const selectTabla = document.getElementById("tabla");
+        const divIdJuego = document.getElementById("div-id-juego");
+
+        inputImagen.addEventListener("input", () => {
+            const url = inputImagen.value.trim();
+
+            if(url)
+            {
+                imagenPreview.src = url;
+                previewContainer.classList.remove("hidden");
+                previewContainer.classList.add("visible");
+
+            }
+            else
+            {
+                imagenPreview.src = "";
+                previewContainer.classList.remove("visible");
+                previewContainer.classList.add("hidden");
+            }
+        });
 
         altaProducts_form.addEventListener("submit", async(event) => {
 
@@ -98,13 +136,18 @@
             console.log(data);
 
             // Validamos datos previamente en el cliente
-            if(!data.nombre || !data.imagen || !data.precio) {
+            if(!data.tabla || !data.nombre || !data.imagen || !data.precio) {
                 alert("Todos los campos son obligatorios!");
                 return;
             }
 
+            if (data.tabla === "dlcs" && !data.id_juego) {
+                alert("Para crear un DLC debes indicar el ID del juego padre.");
+                return;
+            }
+
             try {
-                let response = await fetch(`${url}/products`, {
+                let response = await fetch(`${url}/products/${data.tabla}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -113,10 +156,14 @@
                 });
 
                 if(response.ok) {
+                    altaProducts_form.reset();
+
                     console.log(response);
 
                     let result = await response.json();
+
                     console.log(result.message);
+
                     alert(result.message);
 
                 } else {
@@ -128,7 +175,18 @@
                 console.log("Error al enviar los datos", error);
                 alert("Error al enviar la solicitud");
             }
-        })
+        });
+
+        selectTabla.addEventListener("change", () => {
+            if (selectTabla.value === "dlcs") {
+                // Si elige DLC, mostramos el campo
+                divIdJuego.style.display = "block";
+            } else {
+                // Si elige Juego, lo ocultamos y limpiamos valor
+                divIdJuego.style.display = "none";
+                document.getElementById("id_juego").value = "";
+            }
+        });
     </script>
 </body>
 </html>

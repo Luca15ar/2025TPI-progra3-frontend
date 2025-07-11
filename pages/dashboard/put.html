@@ -36,7 +36,7 @@
             <a href="post.html">
                 <li>AÑADIR</li>
             </a>
-            <a href="put.html">
+            <a id="pestaña-seleccionada" href="put.html">
                 <li><span>MODIFICAR</span></li>
             </a>
             <a href="delete.html">
@@ -45,26 +45,33 @@
         </ul>
         
         <hr>
-            <h2 class="titulo">Actualizar producto</h2>
-            <p class="titulo">Primero buscamos el id, luego generamos un formulario para actualizar los campos</p>
+            <h2><span>Actualizar producto</span></h2>
+            <p>Primero buscamos el ID, luego generamos un formulario para actualizar los campos.</p>
         <hr>
     </header>
 
     <!-- Contenedor principal -->
-    <main id="contenedor-get">
+    <main>
         <div id="getProduct-container">
             <h2>Consultar producto</h2>
 
             <form id="getProduct-form">
-                <label for="idProd">Id producto</label>
-                <input type="number" name="idProd" id="idProd" required>
+                <label for="idProd">ID producto</label>
+                <input id="idProd" type="number" name="idProd" required>
 
-                <input type="submit" value="Consultar producto">
+                <label for="tabla">Tabla</label>
+                <select id="tabla" name="tabla" required>
+                    <option value="juegos">Juegos</option>
+                    <option value="dlcs">DLCs</option>
+                </select>
+
+                <input id="btn-submit" type="submit" value="Consultar producto">
             </form>
         </div>
 
         <div id="getId-container">
             <ul id="getId-list">
+
             </ul>
         </div>
 
@@ -88,7 +95,7 @@
                 getId_lista.innerHTML = "<p>Cargando usuario...</p>";
 
                 // Queremos extraer la informacion de los campos del formulario!
-                // Este es un objeto JavaScript especifico de informacion de formularios HTML
+                // Este es un objeto JavaScript específico de información de formularios HTML
                 let formData = new FormData(event.target); 
 
                 // Transformamos el objeto FormData en un objeto JS normal
@@ -101,15 +108,17 @@
                 let idProd = data.idProd.trim(); 
                 console.log(idProd);
 
+                let tablaProd = data.tabla.trim();
+                console.log(tablaProd);
 
-                //Validacion basica
-                if(!idProd) {
+                //Validación básica
+                if(!tablaProd || !idProd) {
                     throw new Error(`Error en el envio de datos del formulario`);
                 }
 
-                let response = await fetch(`${url}/products/${idProd}`);
+                let response = await fetch(`${url}/products/${tablaProd}/${idProd}`);
 
-                //Manejamos el error en una posible respuesta no existosa
+                //Manejamos el error en una posible respuesta no exitosa
                 if(!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`); // Error 404: Not Found
                 }
@@ -119,25 +128,42 @@
 
                 //Verificamos si existen productos en la respuesta
                 if(!datos.payload || datos.payload.length === 0) {
-                    throw new Error("No se encontro el producto solicitado")
+                    throw new Error("No se encontró el producto solicitado.")
                 }
 
                 // Guardamos nuestro producto en una variable
                 let producto = datos.payload[0];
                 console.log(producto); 
 
-                // Le agregamos el boton que permita actualizar este producto encontrado
-                let htmlProducto = `
-                    <li class="li-listados productos-listados">
-                        <div class="li-listados_datos">
-                            <p>Id: ${producto.id_juego} / Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</strong></p>
-                            <img src="${producto.imagen}" alt="${producto.nombre}" class="img-listados">
-                        </div>
-                        <div class="li-listados_boton">
-                            <input class="listados_boton" id="updateProduct_button" type="button" value="Actualizar producto">
-                        </div>
-                    </li>
-                `;
+                // Le agregamos el botón que permita actualizar este producto encontrado
+                let htmlProducto = "";
+
+                if(tablaProd === "juegos")
+                {
+                    htmlProducto = `
+                    <h3>Producto ID: ${producto.id_juego}</h3>
+                        <li id="producto-encontrado">
+                            <img class="img-listados" src="${producto.imagen}" alt="${producto.nombre}">
+                            <p ><span>ID:</span> ${producto.id_juego} |<span>Nombre:</span> ${producto.nombre} |<span>Precio:</span> $${producto.precio}</p>
+
+                        </li>
+
+                        <input id="updateProduct_button" type="button" value="Actualizar producto">
+                    `;
+                }
+                else if(tablaProd === "dlcs")
+                {
+                    htmlProducto = `
+                    <h3>Producto ID: ${producto.id_dlc}</h3>
+                        <li id="producto-encontrado">
+                            <img class="img-listados" src="${producto.imagen}" alt="${producto.nombre}">
+                            <p><span>ID:</span> ${producto.id_dlc} |<span>Nombre:</span> ${producto.nombre} |<span>Precio:</span> $${producto.precio}</p>
+
+                        </li>
+                        
+                        <input id="updateProduct_button" type="button" value="Actualizar producto">
+                    `;
+                }
 
                 getId_lista.innerHTML = htmlProducto;
 
@@ -163,19 +189,21 @@
             console.log(producto);
 
             let updateProduct = `
-            <div id="updateProducts-container" class="crudForm-container">
+            <div id="updateProducts-container">
                 <h2>Actualizar producto</h2>
 
                 <form id="updateProducts-form" autocomplete="off">
+                    <label for="idProd">ID</label>
+                    <input id="idProd" type="number" name="id" value=${producto.id_juego} readonly>
 
-                    <label for="idProd">Id</label>
-                    <input type="number" name="id" id="idProd" value=${producto.id_juego} readonly>
+                    <label for="nombreProd">Nombre</label>
+                    <input id="nombreProd" type="text" name="nombre" value=${producto.nombre} required>
 
                     <label for="imagenProd">Imagen</label>
-                    <input type="text" name="imagen" id="imagenProd" value=${producto.imagen} required>
+                    <input id="imagenProd" type="text" name="imagen" value=${producto.imagen} required>
 
-                    <label for="categoriaProd">Categoria</label>
-                    <select name="categoria" id="categoriaProd" required>
+                    <label for="categoriaProd">Categoría</label>
+                    <select id="categoriaProd" name="categoria" required>
                         <option value="accion">Acción</option>
                         <option value="terror">Terror</option>
                         <option value="deporte">Deporte</option>
@@ -185,13 +213,10 @@
                         <option value="mundo-abierto">Mundo abierto</option>
                     </select>
                     
-                    <label for="nombreProd">Nombre</label>
-                    <input type="text" name="nombre" id="nombreProd" value=${producto.nombre} required>
-
                     <label for="precioProd">Precio</label>
-                    <input type="number" name="precio" id="precioProd" value=${producto.precio} required>
+                    <input id="precioProd" type="number" name="precio" value=${producto.precio} required>
 
-                    <input type="submit" value="Actualizar producto">
+                    <input id="btn-submit" type="submit" value="Actualizar producto">
                 </form>
             </div>
             `;
@@ -208,7 +233,8 @@
 
         // Enviamos los nuevos datos del formulario al servidor
         async function actualizarProducto(event) {
-            event.preventDefault(); // Prevenimos el envio por defecto del formulario
+            event.preventDefault(); // Prevenimos el envío por defecto del formulario
+            let tabla = document.getElementById("tabla").value;
 
             let formData = new FormData(event.target);
 
@@ -221,7 +247,7 @@
             }
 
             try {
-                let response = await fetch(`${url}/products`, {
+                let response = await fetch(`${url}/products/${tabla}/${data.id}`, {
                     method: "PUT",
                     headers: {
                         "Content-type" : "application/json",
@@ -236,7 +262,7 @@
                     console.log(result.message);
                     alert(result.message);
 
-                    // Vaciamos si existiera la lista y el formulario de actualizacion del producto
+                    // Vaciamos si existiera la lista y el formulario de actualización del producto
                     getId_lista.innerHTML = "";
                     updateForm_container.innerHTML = "";
 

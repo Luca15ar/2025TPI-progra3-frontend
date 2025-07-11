@@ -27,7 +27,7 @@
         </div>
 
         <ul id="listado-nav">
-            <a href="get.html">
+            <a id="pestaña-seleccionada" href="get.html">
                 <li><span>CONSULTAR</span></li>
             </a>
             <a href="getById.html">
@@ -45,12 +45,12 @@
         </ul>
 
         <hr>
-            <h2>Listado de productos</h2>
+            <h2><span>Listado de productos</span></h2>
         <hr>
     </header>
 
     <!-- Contenedor principal -->
-    <main id="contenedor-get">
+    <main>
         <div id="juegos-container">
             <ul id="juegos-lista">
 
@@ -91,9 +91,9 @@
                 htmlJuegos += `
                     <li class="juegos-listados">
                         <img class="img-listados" src="${juego.imagen}" alt="${juego.nombre}">
-                        <p id="p-id"><span>ID:</span> ${juego.id_juego} |</p>
-                        <p id="p-nombre"><span>Nombre:</span> ${juego.nombre} |</p>
-                        <p id="p-precio"><span>Precio:</span> $${juego.precio}</p>`;
+                        <p id="p-id"><span>ID:</span> ${juego.id_juego} </p>
+                        <p id="p-nombre">|<span>Nombre:</span> ${juego.nombre}</p>
+                        <p id="p-precio">|<span>Precio:</span> $${juego.precio}</p>`;
 
                 if(juego.dlcs.length > 0) 
                 {
@@ -106,8 +106,9 @@
                     htmlJuegos += `
                         <li class="dlc-listados">
                             <img class="img-listados" src="${dlc.imagen}" alt="${dlc.nombre}" >
-                            <p id="p-nombre"><span>Nombre:</span> ${dlc.nombre} |</p>
-                            <p id="p-precio"><span>Precio:</span> $${dlc.precio}</p>
+                            <p id="p-id"><span>ID:</span> ${dlc.id_dlc}</p>
+                            <p id="p-nombre">|<span>Nombre:</span> ${dlc.nombre} </p>
+                            <p id="p-precio">|<span>Precio:</span> $${dlc.precio}</p>
                         </li>`;
                     });
 

@@ -1,4 +1,10 @@
 /* --- Estilos del GET --- */
+#pestaña-seleccionada
+{
+    border-radius: 5px;
+    background-color: rgb(26, 67, 104);
+}
+
 #juegos-listados
 {
     display: flex;
